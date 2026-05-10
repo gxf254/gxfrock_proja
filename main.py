@@ -44,6 +44,9 @@ def main():
     p_cat_del = cat_sub.add_parser('delete', help='删除分类')
     p_cat_del.add_argument('name', help='分类名称')
 
+    # ── gui ────────────────────────────────────────────
+    sub.add_parser('gui', help='启动图形界面')
+
     args = parser.parse_args()
 
     if args.command is None:
@@ -72,6 +75,11 @@ def main():
                 commands.delete_category(conn, args.name)
             else:
                 p_cat.print_help()
+        elif args.command == 'gui':
+            import gui
+            conn.close()
+            gui.App().mainloop()
+            return
     finally:
         conn.close()
 
